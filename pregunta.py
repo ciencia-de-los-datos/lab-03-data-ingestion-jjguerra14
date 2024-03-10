@@ -19,7 +19,8 @@ def ingest_data():
     columnas = [
         "cluster",
         "cantidad_de_palabras_clave",
-        "porcentaje_de_palabras_clave"
+        "porcentaje_de_palabras_clave",
+        "principales_palabras_clave",
     ]
 
     clusters = []  # Lista con toda la información
@@ -46,7 +47,7 @@ def ingest_data():
             # Reemplazamos las comas por puntos en los porcentajes
             palabras = " ".join(palabras[1:])
             diccionario["palabras"] += palabras
-            diccionario["palabras"] = diccionario["palabras"].replace(".", "")  # Cambio
+         
 
         elif re.match("^ + [a-z]", fila):
             # expresión regular que comienza con uno o más espacios seguidos de una letra minúscula.
@@ -56,6 +57,9 @@ def ingest_data():
             diccionario["palabras"] += " " + palabras
 
         elif re.match("^\n", fila) or re.match("^ +$", fila):
+             
+            diccionario["palabras"] = diccionario["palabras"].replace(".", "")  # Cambio
+            
             # Lo vamos a utilizar para reiniciar el diccionario al saltar de cluster
             # expresión regular que contiene un sólo salto de línea o líneas que
             # contienen uno o más espacios y luego un final de línea.
@@ -71,7 +75,6 @@ def ingest_data():
                 "palabras": "",
             }
 
-
     df = pd.DataFrame(clusters, columns=columnas)
     # DataFrame final con la ingestión de datos
-    return df 
+    return df
