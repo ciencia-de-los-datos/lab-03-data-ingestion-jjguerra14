@@ -71,6 +71,7 @@ def ingest_data():
                 "palabras": "",
             }
 
+
     df = pd.DataFrame(clusters, columns=columnas)
     # DataFrame final con la ingestión de datos
-    return df
+    return df 
